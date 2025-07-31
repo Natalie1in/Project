@@ -1,3 +1,8 @@
+using Project.Repositories;
+using Project.Repositories.@interface;
+using Project.Services;
+using Project.Services.Interface;
+
 namespace Project
 {
     public class Program
@@ -8,6 +13,11 @@ namespace Project
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            #region µù¥UDI
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            #endregion
 
             var app = builder.Build();
 
