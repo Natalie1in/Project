@@ -1,4 +1,5 @@
-﻿using Project.Models;
+﻿using Project.Dtos;
+using Project.Models;
 
 namespace Project.Services.Interface
 {
@@ -9,5 +10,6 @@ namespace Project.Services.Interface
         Task CreateOrderAsync(Order order);
         Task UpdateOrderAsync(Order order);
         Task DeleteOrderAsync(int id);
+        Task<bool> UpdateProductQuantityAsync(UpdateOrderProductDto model);
     }
 }

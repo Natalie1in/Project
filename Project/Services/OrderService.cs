@@ -1,4 +1,5 @@
-﻿using Project.Models;
+﻿using Project.Dtos;
+using Project.Models;
 using Project.Repositories.@interface;
 using Project.Services.Interface;
 
@@ -37,5 +38,15 @@ namespace Project.Services
             await _repository.DeleteAsync(id);
         }
 
+        public async Task<bool> UpdateProductQuantityAsync(UpdateOrderProductDto model)
+        {
+            var detail = await _repository.GetOrderDetailAsync(model.OrderId, model.ProductId);
+            if (detail == null)
+                return false;
+
+            detail.Quantity = model.Quantity;
+            await _repository.UpdateOrderDetailAsync(detail);
+            return true;
+        }
     }
 }

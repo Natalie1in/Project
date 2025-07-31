@@ -43,5 +43,17 @@ namespace Project.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<OrderDetail?> GetOrderDetailAsync(int orderId, int productId)
+        {
+            return await _context.OrderDetails
+                .FirstOrDefaultAsync(od => od.OrderId == orderId && od.ProductId == productId);
+        }
+
+        public async Task UpdateOrderDetailAsync(OrderDetail detail)
+        {
+            _context.OrderDetails.Update(detail);
+            await _context.SaveChangesAsync();
+        }
     }
 }

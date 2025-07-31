@@ -61,6 +61,7 @@ namespace Project.Repositories
                         OrderDate = o.OrderDate ?? DateTime.MinValue,
                         Products = o.OrderDetails.Select(od => new OrderProductDto
                         {
+                            ProductId = od.Product.ProductId,
                             ProductName = od.Product.ProductName,
                             Quantity = od.Quantity
                         }).ToList()

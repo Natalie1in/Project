@@ -24,7 +24,9 @@
                                 @foreach (var product in order.Products)
                                 {
                                     <li>
-                                        📦 <strong>@product.ProductName</strong> - 數量：@product.Quantity
+                                        📦 <strong>@product.ProductName</strong> -
+                                        數量：<input type="number" id="qty-@order.OrderId-@product.ProductId" value="@product.Quantity" style="width: 60px;" />
+                                        <button onclick="updateQty(@order.OrderId, @product.ProductId)">更新</button>
                                     </li>
                                 }
                             </ul>

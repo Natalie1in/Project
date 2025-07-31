@@ -9,5 +9,7 @@ namespace Project.Repositories.@interface
         Task AddAsync(Order order);
         Task UpdateAsync(Order order);
         Task DeleteAsync(int id);
+        Task<OrderDetail?> GetOrderDetailAsync(int orderId, int productId);
+        Task UpdateOrderDetailAsync(OrderDetail detail);
     }
 }
