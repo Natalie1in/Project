@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Project.Models;
 using Project.Services.Interface;
+using Project.ViewModels;
 
 namespace Project.Controllers
 {
@@ -14,8 +16,19 @@ namespace Project.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var customers = await _service.GetAllAsync();
-            return View(customers);
+            int page = 1;
+            int pageSize = 3;
+            var totalCount = await _service.GetTotalCustomerCountAsync();
+            var customers = await _service.GetCustomerOrdersWithProductsAsync(page, pageSize);
+
+            var viewModel = new CustomerOrderPagedViewModel
+            {
+                Customers = customers,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+            };
+
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Details(string id)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Project.Dtos;
 using Project.Models;
 using Project.Repositories.Interface;
 using Project.Services.Interface;
@@ -38,5 +39,15 @@ namespace Project.Services
         {
             await _repository.DeleteAsync(customerId);
         } 
+
+        public async Task<List<CustomerOrdersDto>> GetCustomerOrdersWithProductsAsync(int page, int pageSize)
+        {
+            return await _repository.GetCustomerOrdersWithProductsAsync(page, pageSize);
+        }
+
+        public async Task<int> GetTotalCustomerCountAsync()
+        {
+            return await _repository.GetTotalCustomerCountAsync();
+        }
     }
 }

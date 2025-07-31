@@ -1,0 +1,60 @@
+﻿
+@using Project.ViewModels
+@model CustomerOrderPagedViewModel
+
+<h2>顧客訂單清單</h2>
+
+@foreach (var customer in Model.Customers)
+{
+    <div class="customer-section" style="margin-bottom: 40px;">
+        <h3>公司名稱：@customer.CompanyName (ID: @customer.CustomerId)</h3>
+
+        @if (customer.Orders != null && customer.Orders.Any())
+        {
+            <ul>
+                @foreach (var order in customer.Orders)
+                {
+                    <li>
+                        <strong>訂單編號：</strong> @order.OrderId <br />
+                        <strong>訂單日期：</strong> @order.OrderDate.ToString("yyyy-MM-dd")
+
+                        @if (order.Products != null && order.Products.Any())
+                        {
+                            <ul>
+                                @foreach (var product in order.Products)
+                                {
+                                    <li>
+                                        📦 <strong>@product.ProductName</strong> - 數量：@product.Quantity
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p style="color: gray;">（此訂單沒有商品）</p>
+                        }
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p style="color: gray;">（此顧客沒有訂單）</p>
+        }
+    </div>
+}
+
+<!-- 分頁 UI -->
+<div class="pagination">
+    @if (Model.CurrentPage > 1)
+    {
+        <a href="?page=@(Model.CurrentPage - 1)">上一頁</a>
+    }
+
+    <span>第 @Model.CurrentPage 頁 / 共 @Model.TotalPages 頁</span>
+
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a href="?page=@(Model.CurrentPage + 1)">下一頁</a>
+    }
+</div>

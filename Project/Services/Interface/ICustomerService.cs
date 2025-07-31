@@ -1,4 +1,5 @@
-﻿using Project.Models;
+﻿using Project.Dtos;
+using Project.Models;
 
 namespace Project.Services.Interface
 {
@@ -9,5 +10,7 @@ namespace Project.Services.Interface
         Task AddAsync(Customer customer);
         Task UpdateAsync(Customer customer);
         Task DeleteAsync(string customerId);
+        Task<List<CustomerOrdersDto>> GetCustomerOrdersWithProductsAsync(int page, int pageSize);
+        Task<int> GetTotalCustomerCountAsync();
     }
 }
