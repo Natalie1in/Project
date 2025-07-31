@@ -9,7 +9,7 @@ namespace Project.Services.Interface
         Task<Order?> GetOrderByIdAsync(int id);
         Task CreateOrderAsync(Order order);
         Task UpdateOrderAsync(Order order);
-        Task DeleteOrderAsync(int id);
+        Task<bool> DeleteOrderAsync(int id);
         Task<bool> UpdateProductQuantityAsync(UpdateOrderProductDto model);
     }
 }

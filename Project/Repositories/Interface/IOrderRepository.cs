@@ -9,7 +9,10 @@ namespace Project.Repositories.@interface
         Task AddAsync(Order order);
         Task UpdateAsync(Order order);
         Task DeleteAsync(int id);
+        Task DeleteAsync(Order order);
         Task<OrderDetail?> GetOrderDetailAsync(int orderId, int productId);
         Task UpdateOrderDetailAsync(OrderDetail detail);
+        Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId);
+        Task RemoveOrderDetailsAsync(IEnumerable<OrderDetail> orderDetails);
     }
 }

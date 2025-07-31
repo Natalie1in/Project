@@ -1,5 +1,7 @@
-﻿using Project.Dtos;
+﻿using Microsoft.EntityFrameworkCore;
+using Project.Dtos;
 using Project.Models;
+using Project.Repositories;
 using Project.Repositories.@interface;
 using Project.Services.Interface;
 
@@ -33,9 +35,17 @@ namespace Project.Services
             await _repository.UpdateAsync(order);
         }
 
-        public async Task DeleteOrderAsync(int id)
-        { 
-            await _repository.DeleteAsync(id);
+        public async Task<bool> DeleteOrderAsync(int id)
+        {
+            var details = await _repository.GetOrderDetailsByOrderIdAsync(id);
+            await _repository.RemoveOrderDetailsAsync(details);
+
+            var order = await _repository.GetByIdAsync(id);
+            if (order == null)
+                return false;
+
+            await _repository.DeleteAsync(order);
+            return true;
         }
 
         public async Task<bool> UpdateProductQuantityAsync(UpdateOrderProductDto model)

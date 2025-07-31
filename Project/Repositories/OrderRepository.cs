@@ -43,6 +43,11 @@ namespace Project.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task DeleteAsync(Order order)
+        {
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task<OrderDetail?> GetOrderDetailAsync(int orderId, int productId)
         {
@@ -55,5 +60,20 @@ namespace Project.Repositories
             _context.OrderDetails.Update(detail);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId)
+        {
+            return await _context.OrderDetails
+                .Where(od => od.OrderId == orderId)
+                .ToListAsync();
+        }
+
+        public async Task RemoveOrderDetailsAsync(IEnumerable<OrderDetail> orderDetails)
+        {
+            _context.OrderDetails.RemoveRange(orderDetails);
+            await _context.SaveChangesAsync();
+        }
+
+
     }
 }

@@ -36,34 +36,6 @@ namespace Project.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Details(string id)
-        {
-            var customer = await _customerService.GetByIdAsync(id);
-            if (customer == null) return NotFound();
-            return View(customer);
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Customer customer)
-        {
-            if (!ModelState.IsValid) return View(customer);
-
-            await _customerService.AddAsync(customer);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Edit(string id)
-        {
-            var customer = await _customerService.GetByIdAsync(id);
-            if (customer == null) return NotFound();
-            return View(customer);
-        }
-
         [HttpPost]
         public async Task<IActionResult> UpdateProductQuantity([FromBody] UpdateOrderProductDto model)
         {
@@ -74,18 +46,14 @@ namespace Project.Controllers
             return Ok(new { success = true, message = "數量已更新" });
         }
 
-        public async Task<IActionResult> Delete(string id)
+        [HttpPost]
+        public async Task<IActionResult> DeleteOrder([FromBody] int orderId)
         {
-            var customer = await _customerService.GetByIdAsync(id);
-            if (customer == null) return NotFound();
-            return View(customer);
-        }
+            var success = await _orderService.DeleteOrderAsync(orderId);
+            if (!success)
+                return NotFound();
 
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            await _customerService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            return Ok(new { success = true });
         }
     }
 }

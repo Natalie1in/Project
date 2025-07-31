@@ -15,7 +15,8 @@
                 @foreach (var order in customer.Orders)
                 {
                     <li>
-                        <strong>訂單編號：</strong> @order.OrderId <br />
+                        <strong>訂單編號：</strong> @order.OrderId <button onclick="deleteOrder(@order.OrderId)">刪除訂單</button> <br />
+
                         <strong>訂單日期：</strong> @order.OrderDate.ToString("yyyy-MM-dd")
 
                         @if (order.Products != null && order.Products.Any())
