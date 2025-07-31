@@ -1,5 +1,6 @@
 using Project.Repositories;
 using Project.Repositories.@interface;
+using Project.Repositories.Interface;
 using Project.Services;
 using Project.Services.Interface;
 
@@ -16,7 +17,9 @@ namespace Project
 
             #region µù¥UDI
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
             #endregion
 
             var app = builder.Build();
