@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Project.Models;
 using Project.Repositories;
 using Project.Repositories.@interface;
 using Project.Repositories.Interface;
@@ -14,6 +16,8 @@ namespace Project
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<NorthwindContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindConnection")));
 
             #region µù¥UDI
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
