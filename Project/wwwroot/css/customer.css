@@ -1,0 +1,14 @@
+﻿.customer-section {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+
+ul {
+    margin-left: 20px;
+}
+
+h3 {
+    color: #1e40af;
+}
